@@ -1,0 +1,116 @@
+/* EventOps Indonesia — Token Warna Semantik Slate-Emerald (DESIGN.md) */
+/* Bebas warna pink/magenta/rose; mengutamakan kontras operasional >= 4.5:1 */
+
+:root {
+  color-scheme: light dark;
+
+  --eo-bg-canvas-light: #f8fafc;
+  --eo-bg-canvas-dark: #090d16;
+  --eo-bg-surface-light: #ffffff;
+  --eo-bg-surface-dark: #111827;
+  --eo-bg-subtle-light: #f1f5f9;
+  --eo-bg-subtle-dark: #1e293b;
+  --eo-border-default-light: #e2e8f0;
+  --eo-border-default-dark: #1f2937;
+  --eo-text-primary-light: #0f172a;
+  --eo-text-primary-dark: #f8fafc;
+  --eo-text-secondary-light: #475569;
+  --eo-text-secondary-dark: #94a3b8;
+  --eo-brand-primary-light: #0f172a;
+  --eo-brand-primary-dark: #10b981;
+  --eo-brand-primary-fg-light: #ffffff;
+  --eo-brand-primary-fg-dark: #042f2e;
+  --eo-accent-operational-light: #047857;
+  --eo-accent-operational-dark: #34d399;
+  --eo-accent-operational-subtle-light: #ecfdf5;
+  --eo-accent-operational-subtle-dark: #022c22;
+  --eo-status-info-light: #1d4ed8;
+  --eo-status-info-dark: #93c5fd;
+  --eo-status-info-subtle-light: #eff6ff;
+  --eo-status-info-subtle-dark: #172554;
+  --eo-status-warning-light: #b45309;
+  --eo-status-warning-dark: #fcd34d;
+  --eo-status-warning-subtle-light: #fffbeb;
+  --eo-status-warning-subtle-dark: #451a03;
+  --eo-status-danger-light: #b91c1c;
+  --eo-status-danger-dark: #fca5a5;
+  --eo-status-danger-subtle-light: #fef2f2;
+  --eo-status-danger-subtle-dark: #450a0a;
+
+  --bg-canvas: var(--eo-bg-canvas-light);
+  --bg-surface: var(--eo-bg-surface-light);
+  --bg-subtle: var(--eo-bg-subtle-light);
+  --border-default: var(--eo-border-default-light);
+  --text-primary: var(--eo-text-primary-light);
+  --text-secondary: var(--eo-text-secondary-light);
+  --brand-primary: var(--eo-brand-primary-light);
+  --brand-primary-fg: var(--eo-brand-primary-fg-light);
+  --accent-operational: var(--eo-accent-operational-light);
+  --accent-operational-subtle: var(--eo-accent-operational-subtle-light);
+  --status-info: var(--eo-status-info-light);
+  --status-info-subtle: var(--eo-status-info-subtle-light);
+  --status-warning: var(--eo-status-warning-light);
+  --status-warning-subtle: var(--eo-status-warning-subtle-light);
+  --status-danger: var(--eo-status-danger-light);
+  --status-danger-subtle: var(--eo-status-danger-subtle-light);
+
+  @media (prefers-color-scheme: dark) {
+    --bg-canvas: var(--eo-bg-canvas-dark);
+    --bg-surface: var(--eo-bg-surface-dark);
+    --bg-subtle: var(--eo-bg-subtle-dark);
+    --border-default: var(--eo-border-default-dark);
+    --text-primary: var(--eo-text-primary-dark);
+    --text-secondary: var(--eo-text-secondary-dark);
+    --brand-primary: var(--eo-brand-primary-dark);
+    --brand-primary-fg: var(--eo-brand-primary-fg-dark);
+    --accent-operational: var(--eo-accent-operational-dark);
+    --accent-operational-subtle: var(--eo-accent-operational-subtle-dark);
+    --status-info: var(--eo-status-info-dark);
+    --status-info-subtle: var(--eo-status-info-subtle-dark);
+    --status-warning: var(--eo-status-warning-dark);
+    --status-warning-subtle: var(--eo-status-warning-subtle-dark);
+    --status-danger: var(--eo-status-danger-dark);
+    --status-danger-subtle: var(--eo-status-danger-subtle-dark);
+  }
+
+  @supports (color: light-dark(white, black)) {
+    --bg-canvas: light-dark(var(--eo-bg-canvas-light), var(--eo-bg-canvas-dark));
+    --bg-surface: light-dark(var(--eo-bg-surface-light), var(--eo-bg-surface-dark));
+    --bg-subtle: light-dark(var(--eo-bg-subtle-light), var(--eo-bg-subtle-dark));
+    --border-default: light-dark(var(--eo-border-default-light), var(--eo-border-default-dark));
+    --text-primary: light-dark(var(--eo-text-primary-light), var(--eo-text-primary-dark));
+    --text-secondary: light-dark(var(--eo-text-secondary-light), var(--eo-text-secondary-dark));
+    --brand-primary: light-dark(var(--eo-brand-primary-light), var(--eo-brand-primary-dark));
+    --brand-primary-fg: light-dark(var(--eo-brand-primary-fg-light), var(--eo-brand-primary-fg-dark));
+    --accent-operational: light-dark(var(--eo-accent-operational-light), var(--eo-accent-operational-dark));
+    --accent-operational-subtle: light-dark(var(--eo-accent-operational-subtle-light), var(--eo-accent-operational-subtle-dark));
+    --status-info: light-dark(var(--eo-status-info-light), var(--eo-status-info-dark));
+    --status-info-subtle: light-dark(var(--eo-status-info-subtle-light), var(--eo-status-info-subtle-dark));
+    --status-warning: light-dark(var(--eo-status-warning-light), var(--eo-status-warning-dark));
+    --status-warning-subtle: light-dark(var(--eo-status-warning-subtle-light), var(--eo-status-warning-subtle-dark));
+    --status-danger: light-dark(var(--eo-status-danger-light), var(--eo-status-danger-dark));
+    --status-danger-subtle: light-dark(var(--eo-status-danger-subtle-light), var(--eo-status-danger-subtle-dark));
+  }
+
+  &:has(> head > meta[name="color-scheme"][content="dark"]) {
+    color-scheme: dark;
+  }
+
+  &:has(> head > meta[name="color-scheme"][content="light"]) {
+    color-scheme: light;
+  }
+
+  accent-color: var(--accent-operational);
+  scrollbar-color: var(--text-secondary) var(--bg-subtle);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

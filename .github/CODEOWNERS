@@ -1,0 +1,97 @@
+# EventOps Indonesia — Pemetaan Pemilik Kode (Sinkron dengan AGENTS.md)
+# Ganti @handle-github-* di bawah dengan username GitHub masing-masing anggota tim.
+
+# Fondasi & Konfigurasi Bersama
+/package.json                       @fe1-handle @be1-handle
+/pnpm-workspace.yaml                @fe1-handle @be1-handle
+/pnpm-lock.yaml                     @fe1-handle @be1-handle
+/turbo.json                         @fe1-handle @be1-handle
+/packages/typescript-config/        @fe1-handle @be1-handle
+/packages/contracts/src/common/     @fe1-handle @be1-handle
+
+# Kontrak Bersama per Squad
+/packages/contracts/src/auth/           @be1-handle @fe1-handle
+/packages/contracts/src/organizations/  @be1-handle @fe1-handle
+/packages/contracts/src/events/         @be1-handle @fe1-handle
+/packages/contracts/src/teams/          @be1-handle @fe1-handle
+/packages/contracts/src/tasks/          @be1-handle @fe1-handle
+/packages/contracts/src/timeline/       @be1-handle @fe1-handle
+/packages/contracts/src/rundown/        @be1-handle @fe1-handle
+
+/packages/contracts/src/vendors/        @be2-handle @fe2-handle
+/packages/contracts/src/resources/      @be2-handle @fe2-handle
+/packages/contracts/src/finance/        @be2-handle @fe2-handle
+/packages/contracts/src/registrations/  @be2-handle @fe2-handle
+/packages/contracts/src/documents/      @be2-handle @fe2-handle
+/packages/contracts/src/notifications/  @be2-handle @fe2-handle
+/packages/contracts/src/reports/        @be2-handle @fe2-handle
+/packages/contracts/src/subscriptions/  @be2-handle @fe2-handle
+
+# Area FE-1 (Integration Owner Frontend & Squad Alpha UI)
+/packages/ui/                                           @fe1-handle
+/apps/web/src/proxy.ts                                  @fe1-handle
+/apps/web/src/app/layout.tsx                            @fe1-handle
+/apps/web/src/app/globals.css                           @fe1-handle
+/apps/web/src/components/layout/                        @fe1-handle
+/apps/web/src/components/providers/                     @fe1-handle
+/apps/web/src/features/auth/                            @fe1-handle
+/apps/web/src/features/onboarding/                      @fe1-handle
+/apps/web/src/features/organizations/                   @fe1-handle
+/apps/web/src/features/my-workspace/                    @fe1-handle
+/apps/web/src/features/events/                          @fe1-handle
+/apps/web/src/features/teams/                           @fe1-handle
+/apps/web/src/features/tasks/                           @fe1-handle
+/apps/web/src/features/timeline/                        @fe1-handle
+/apps/web/src/features/rundown/                         @fe1-handle
+/apps/web/src/features/live-ops/                        @fe1-handle
+/apps/web/src/app/(auth)/                               @fe1-handle
+/apps/web/src/app/(app)/me/                             @fe1-handle
+/apps/web/src/app/(app)/orgs/*/overview/                @fe1-handle
+/apps/web/src/app/(app)/orgs/*/events/                  @fe1-handle
+/apps/web/src/app/(app)/orgs/*/members/                 @fe1-handle
+/apps/web/src/app/(app)/orgs/*/settings/                @fe1-handle
+
+# Area FE-2 (Squad Beta UI)
+/apps/web/src/features/marketing/                       @fe2-handle
+/apps/web/src/features/vendors/                         @fe2-handle
+/apps/web/src/features/resources/                       @fe2-handle
+/apps/web/src/features/finance/                         @fe2-handle
+/apps/web/src/features/registrations/                   @fe2-handle
+/apps/web/src/features/check-in/                        @fe2-handle
+/apps/web/src/features/documents/                       @fe2-handle
+/apps/web/src/features/notifications/                   @fe2-handle
+/apps/web/src/features/activities/                      @fe2-handle
+/apps/web/src/features/reports/                         @fe2-handle
+/apps/web/src/features/subscriptions/                   @fe2-handle
+/apps/web/src/app/(public)/                             @fe2-handle
+/apps/web/src/app/(app)/orgs/*/subscription/            @fe2-handle
+/apps/web/src/app/(app)/orgs/*/events/*/vendors/        @fe2-handle
+/apps/web/src/app/(app)/orgs/*/events/*/resources/      @fe2-handle
+/apps/web/src/app/(app)/orgs/*/events/*/budget/         @fe2-handle
+/apps/web/src/app/(app)/orgs/*/events/*/participants/   @fe2-handle
+/apps/web/src/app/(app)/orgs/*/events/*/check-in/       @fe2-handle
+/apps/web/src/app/(app)/orgs/*/events/*/documents/      @fe2-handle
+/apps/web/src/app/(app)/orgs/*/events/*/reports/        @fe2-handle
+
+# Area BE-1 (Integration Owner Backend & Squad Alpha API)
+/apps/api/src/app.module.ts                 @be1-handle
+/apps/api/prisma/migrations/                @be1-handle
+/apps/api/src/core/                         @be1-handle
+/apps/api/src/modules/auth/                 @be1-handle
+/apps/api/src/modules/organizations/        @be1-handle
+/apps/api/src/modules/events/               @be1-handle
+/apps/api/src/modules/teams/                @be1-handle
+/apps/api/src/modules/tasks/                @be1-handle
+/apps/api/src/modules/timeline/             @be1-handle
+/apps/api/src/modules/rundown/              @be1-handle
+
+# Area BE-2 (Squad Beta API & Support Infra)
+/apps/api/src/infra/                        @be2-handle
+/apps/api/src/modules/vendors/              @be2-handle
+/apps/api/src/modules/resources/            @be2-handle
+/apps/api/src/modules/finance/              @be2-handle
+/apps/api/src/modules/registrations/        @be2-handle
+/apps/api/src/modules/documents/            @be2-handle
+/apps/api/src/modules/notifications/        @be2-handle
+/apps/api/src/modules/reports/              @be2-handle
+/apps/api/src/modules/subscriptions/        @be2-handle

@@ -1,0 +1,11 @@
+{
+  "name": "@eventops/typescript-config",
+  "version": "0.1.0",
+  "private": true,
+  "license": "UNLICENSED",
+  "files": [
+    "base.json",
+    "library.json",
+    "nextjs.json"
+  ]
+}

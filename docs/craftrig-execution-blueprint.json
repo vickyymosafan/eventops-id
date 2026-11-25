@@ -1,0 +1,425 @@
+{
+  "schemaVersion": "1.0.0",
+  "blueprintId": "eventops-indonesia-v1",
+  "projectName": "EventOps Indonesia — SaaS Manajemen Operasional Event",
+  "language": "id",
+  "marketContext": {
+    "country": "ID",
+    "currency": "IDR",
+    "timezones": ["Asia/Jakarta", "Asia/Makassar", "Asia/Jayapura"],
+    "compliance": ["UU PDP No. 27 Tahun 2022"],
+    "localIntegrations": ["Midtrans/Xendit (QRIS & Virtual Account)", "WhatsApp Gateway Adapter + Resend Email", "Cloudflare R2 / MinIO Presigned Storage"]
+  },
+  "stack": {
+    "monorepo": "pnpm + Turborepo 2.x",
+    "frontend": "Next.js 16 (App Router + proxy.ts), React 19, Tailwind CSS v4, shadcn/ui, TanStack Query v5, React Hook Form, @dnd-kit, TanStack Table v8",
+    "backend": "NestJS 11 (Fastify Adapter), nestjs-zod, @nestjs/swagger, Prisma ORM v7, BullMQ + Redis 7, SSE/WebSocket",
+    "database": "PostgreSQL 17",
+    "sharedContracts": "packages/contracts (Zod v4)"
+  },
+  "teamTopology": {
+    "maxParallelDevelopers": 4,
+    "squads": [
+      {
+        "id": "squad-alpha",
+        "name": "Core Platform, Kepanitiaan & Eksekusi Hari-H",
+        "members": ["BE-1", "FE-1"]
+      },
+      {
+        "id": "squad-beta",
+        "name": "Operasional Vendor/Resource, Keuangan, Peserta & Evaluasi",
+        "members": ["BE-2", "FE-2"]
+      }
+    ]
+  },
+  "activeCraftrigModules": [1, 2, 4, 5, 10, 12, 13, 15, 18, 19, 21, 24, 25, 29, 33, 35, 43, 53, 54, 56, 57, 60, 64, 70],
+  "requirements": [
+    { "id": "REQ-001", "stage": 1, "title": "Landing Page Bahasa Indonesia, Fitur, Harga Paket & Autentikasi Akun", "screens": [1, 2] },
+    { "id": "REQ-002", "stage": 2, "title": "Onboarding Buat/Gabung Organisasi & Manajemen Undangan Anggota", "screens": [3, 4, 5, 38, 39, 41] },
+    { "id": "REQ-003", "stage": 3, "title": "Dashboard Organisasi & Daftar Event Multi-Status", "screens": [6, 7] },
+    { "id": "REQ-004", "stage": 4, "title": "Pembuatan Event Multi-Zona Waktu Indonesia (WIB/WITA/WIT)", "screens": [8, 10] },
+    { "id": "REQ-005", "stage": 5, "title": "Event Workspace & Mesin Evaluasi Kesiapan Acara (Event Readiness)", "screens": [9] },
+    { "id": "REQ-006", "stage": 6, "title": "Struktur Kepanitiaan & Multi-Divisi", "screens": [11] },
+    { "id": "REQ-007", "stage": 7, "title": "Papan Tugas Kanban 6 Kolom, Detail Task, Dependency & Tugas Saya", "screens": [12, 13, 14] },
+    { "id": "REQ-008", "stage": 8, "title": "Linimasa Persiapan (Preparation Timeline) & Susunan Rundown Acara", "screens": [15, 16] },
+    { "id": "REQ-009", "stage": 9, "title": "Database Vendor, Perbandingan Quotation & Booking Perlengkapan Anti-Bentrok", "screens": [17, 18, 19, 20] },
+    { "id": "REQ-010", "stage": 10, "title": "Anggaran Rupiah (Planned/Committed/Actual/Remaining), Approval Biaya & Laporan", "screens": [21, 22, 23, 24] },
+    { "id": "REQ-011", "stage": 11, "title": "Registrasi Peserta Publik Patuh UU PDP, E-Ticket QR & Check-in Atomik Sekali Pakai", "screens": [25, 26, 27, 28, 29] },
+    { "id": "REQ-012", "stage": 12, "title": "Pusat Dokumen Event, Notification Center & Jejak Audit Activity History", "screens": [30, 31, 32] },
+    { "id": "REQ-013", "stage": 13, "title": "Kendali Hari Pelaksanaan Acara (Live Operations SSE Real-Time)", "screens": [33] },
+    { "id": "REQ-014", "stage": 14, "title": "Penutupan Event, Laporan Lintas Modul, Retrospective, Template Reuse & Langganan SaaS", "screens": [34, 35, 36, 37, 40] }
+  ],
+  "phases": [
+    {
+      "phaseId": "phase-1-foundation",
+      "title": "Sprint 1 — Fondasi Monorepo, Auth, Organisasi, Infrastruktur & Landing Page",
+      "tasks": [
+        {
+          "taskId": "S1-SHARED-CONTRACTS",
+          "title": "Inisialisasi Turborepo & Kontrak Dasar @eventops/contracts",
+          "ownerRole": "architecture-lead",
+          "teamAssignee": "BE-1 + FE-1",
+          "dependsOn": [],
+          "ownedPaths": ["package.json", "pnpm-workspace.yaml", "turbo.json", "packages/typescript-config/**", "packages/contracts/src/common/**"],
+          "skillIds": ["clean-architecture-development"],
+          "moduleIds": [21, 25, 64],
+          "acceptanceCriteria": [
+            "pnpm turbo check-types berjalan sukses di seluruh workspace",
+            "Amplop respons API, kode error Indonesia, dan skema pagination tersedia di @eventops/contracts"
+          ]
+        },
+        {
+          "taskId": "S1-BE1-AUTH-ORG",
+          "title": "NestJS Fastify Core, Auth JWT/Refresh Cookie, RBAC Guard & Modul Organisasi",
+          "ownerRole": "backend-developer",
+          "teamAssignee": "BE-1",
+          "dependsOn": ["S1-SHARED-CONTRACTS"],
+          "ownedPaths": ["apps/api/src/core/**", "apps/api/src/modules/auth/**", "apps/api/src/modules/organizations/**", "apps/api/prisma/schema/00-base.prisma", "apps/api/prisma/schema/01-identity-org.prisma", "packages/contracts/src/auth/**", "packages/contracts/src/organizations/**"],
+          "skillIds": ["backend-implementation"],
+          "moduleIds": [5, 29, 33],
+          "acceptanceCriteria": [
+            "Register, Login, Refresh Cookie, Logout, Buat Organisasi, dan Undang Anggota lulus integration test",
+            "Swagger OpenAPI otomatis ter-generate di /docs dari skema Zod"
+          ]
+        },
+        {
+          "taskId": "S1-BE2-INFRA-NOTIF",
+          "title": "Docker Compose Lokal, Storage Presigned R2/MinIO, BullMQ Notification & Audit Log",
+          "ownerRole": "backend-developer",
+          "teamAssignee": "BE-2",
+          "dependsOn": ["S1-SHARED-CONTRACTS"],
+          "ownedPaths": ["docker-compose.yml", "apps/api/src/infra/**", "apps/api/src/modules/notifications/**", "apps/api/prisma/schema/07-ops-platform.prisma", "packages/contracts/src/notifications/**", "packages/contracts/src/subscriptions/**"],
+          "skillIds": ["backend-implementation"],
+          "moduleIds": [26, 43],
+          "acceptanceCriteria": [
+            "PostgreSQL 17, Redis 7, MinIO, dan Mailpit menyala sehat lewat docker compose up -d",
+            "Presigned upload URL dan worker pengiriman email undangan berjalan end-to-end"
+          ]
+        },
+        {
+          "taskId": "S1-FE1-SHELL-ORG",
+          "title": "Design System packages/ui, Next.js 16 proxy.ts, Auth, Onboarding & Shell Organisasi",
+          "ownerRole": "frontend-developer",
+          "teamAssignee": "FE-1",
+          "dependsOn": ["S1-SHARED-CONTRACTS"],
+          "ownedPaths": ["packages/ui/**", "apps/web/src/proxy.ts", "apps/web/src/components/layout/**", "apps/web/src/app/(auth)/**", "apps/web/src/app/(app)/onboarding/**", "apps/web/src/app/(app)/orgs/[orgSlug]/overview/**", "apps/web/src/app/(app)/orgs/[orgSlug]/members/**", "apps/web/src/app/(app)/orgs/[orgSlug]/settings/**"],
+          "skillIds": ["frontend-implementation"],
+          "moduleIds": [13, 15, 18],
+          "acceptanceCriteria": [
+            "Token warna Slate-Emerald tanpa warna pink sesuai DESIGN.md aktif di mode terang dan gelap",
+            "Alur Daftar -> Buat Organisasi -> Undang Anggota berjalan responsif di 375px, 768px, dan 1440px"
+          ]
+        },
+        {
+          "taskId": "S1-FE2-PUBLIC-NOTIF",
+          "title": "Landing Page Indonesia, Halaman Harga Rupiah & Komponen Pusat Notifikasi",
+          "ownerRole": "frontend-developer",
+          "teamAssignee": "FE-2",
+          "dependsOn": ["S1-SHARED-CONTRACTS"],
+          "ownedPaths": ["apps/web/src/app/(public)/**", "apps/web/src/features/marketing/**", "apps/web/src/features/notifications/**", "apps/web/src/app/(app)/me/notifications/**"],
+          "skillIds": ["frontend-implementation"],
+          "moduleIds": [13, 17, 18],
+          "acceptanceCriteria": [
+            "Landing page menggunakan copy Bahasa Indonesia natural dengan pratinjau UI produk nyata",
+            "Bell notifikasi menampilkan unread badge dan mengarahkan pengguna ke item terkait"
+          ]
+        }
+      ]
+    },
+    {
+      "phaseId": "phase-2-events-vendors-resources",
+      "title": "Sprint 2 — Event Core, Kepanitiaan, Vendor & Resource Anti-Bentrok",
+      "tasks": [
+        {
+          "taskId": "S2-BE1-EVENT-TEAM",
+          "title": "API Event Core, State Machine Event & Struktur Kepanitiaan Multi-Divisi",
+          "ownerRole": "backend-developer",
+          "teamAssignee": "BE-1",
+          "dependsOn": ["S1-BE1-AUTH-ORG"],
+          "ownedPaths": ["apps/api/src/modules/events/**", "apps/api/src/modules/teams/**", "apps/api/prisma/schema/02-event-team.prisma", "packages/contracts/src/events/**", "packages/contracts/src/teams/**"],
+          "skillIds": ["backend-implementation"],
+          "moduleIds": [5, 60],
+          "acceptanceCriteria": [
+            "Pembatalan event dan override status READY mewajibkan alasan dan mencatat activity_logs",
+            "Satu anggota organisasi dapat ditugaskan ke beberapa divisi dalam satu event"
+          ]
+        },
+        {
+          "taskId": "S2-BE2-VENDOR-RESOURCE",
+          "title": "API Database Vendor, Multi-Quotation & Mesin Booking Perlengkapan Anti-Bentrok",
+          "ownerRole": "backend-developer",
+          "teamAssignee": "BE-2",
+          "dependsOn": ["S1-BE2-INFRA-NOTIF"],
+          "ownedPaths": ["apps/api/src/modules/vendors/**", "apps/api/src/modules/resources/**", "apps/api/prisma/schema/04-vendor-res.prisma", "packages/contracts/src/vendors/**", "packages/contracts/src/resources/**"],
+          "skillIds": ["backend-implementation"],
+          "moduleIds": [34, 60],
+          "acceptanceCriteria": [
+            "Deteksi konflik irisan waktu lintas event akurat (skenario 3 proyektor diminta 2+2 mengembalikan RESOURCE_BOOKING_CONFLICT)",
+            "Status vendor CONFIRMED terpisah dari status pembayaran keuangan"
+          ]
+        },
+        {
+          "taskId": "S2-FE1-EVENT-TEAM-UI",
+          "title": "UI Daftar Event, Form Buat Event (WIB/WITA/WIT), Event Shell & Halaman Divisi",
+          "ownerRole": "frontend-developer",
+          "teamAssignee": "FE-1",
+          "dependsOn": ["S1-FE1-SHELL-ORG", "S2-BE1-EVENT-TEAM"],
+          "ownedPaths": ["apps/web/src/features/events/**", "apps/web/src/features/teams/**", "apps/web/src/app/(app)/orgs/[orgSlug]/events/page.tsx", "apps/web/src/app/(app)/orgs/[orgSlug]/events/[eventId]/team/**", "apps/web/src/app/(app)/orgs/[orgSlug]/events/[eventId]/settings/**"],
+          "skillIds": ["frontend-implementation"],
+          "moduleIds": [15, 18],
+          "acceptanceCriteria": [
+            "Header konteks Event selalu menampilkan Nama Event, Tanggal + Zona Waktu, dan Status",
+            "Pengelolaan struktur divisi dan anggota berjalan lengkap dengan loading/empty/error states"
+          ]
+        },
+        {
+          "taskId": "S2-FE2-VENDOR-RESOURCE-UI",
+          "title": "UI Direktori Vendor, Komparasi Quotation & Peminjaman Perlengkapan Anti-Bentrok",
+          "ownerRole": "frontend-developer",
+          "teamAssignee": "FE-2",
+          "dependsOn": ["S1-FE1-SHELL-ORG", "S2-BE2-VENDOR-RESOURCE"],
+          "ownedPaths": ["apps/web/src/features/vendors/**", "apps/web/src/features/resources/**", "apps/web/src/app/(app)/orgs/[orgSlug]/events/[eventId]/vendors/**", "apps/web/src/app/(app)/orgs/[orgSlug]/events/[eventId]/resources/**"],
+          "skillIds": ["frontend-implementation"],
+          "moduleIds": [15, 18],
+          "acceptanceCriteria": [
+            "Matriks perbandingan harga quotation tampil dengan format Rupiah tabular-nums",
+            "Banner peringatan konflik stok muncul jelas ketika peminjaman beririsan melebihi stok"
+          ]
+        }
+      ]
+    },
+    {
+      "phaseId": "phase-3-tasks-and-finance",
+      "title": "Sprint 3 — Kanban Task, Tugas Saya, Anggaran (RAB) & Approval Pengeluaran",
+      "tasks": [
+        {
+          "taskId": "S3-BE1-TASKS",
+          "title": "API Kanban Task, Subtask, Dependency Blocker, Komentar & Endpoint /me/tasks",
+          "ownerRole": "backend-developer",
+          "teamAssignee": "BE-1",
+          "dependsOn": ["S2-BE1-EVENT-TEAM"],
+          "ownedPaths": ["apps/api/src/modules/tasks/**", "apps/api/prisma/schema/03-task-schedule.prisma", "packages/contracts/src/tasks/**"],
+          "skillIds": ["backend-implementation"],
+          "moduleIds": [21, 60],
+          "acceptanceCriteria": [
+            "Kondisi isOverdue dihitung akurat tanpa menjadi status kolom tersendiri",
+            "Circular dependency ditolak dan perubahan status/PIC tercatat di activity_logs"
+          ]
+        },
+        {
+          "taskId": "S3-BE2-FINANCE",
+          "title": "API RAB Rupiah, Pengajuan Biaya, Re-Approval Otomatis & Pencatatan Pembayaran",
+          "ownerRole": "backend-developer",
+          "teamAssignee": "BE-2",
+          "dependsOn": ["S2-BE2-VENDOR-RESOURCE"],
+          "ownedPaths": ["apps/api/src/modules/finance/**", "apps/api/prisma/schema/05-finance.prisma", "packages/contracts/src/finance/**"],
+          "skillIds": ["backend-implementation"],
+          "moduleIds": [5, 60],
+          "acceptanceCriteria": [
+            "Seluruh perhitungan Planned, Committed, Actual, dan Remaining menggunakan BigInt Rupiah tanpa float",
+            "Perubahan nominal setelah APPROVED otomatis menurunkan status ke UNDER_REVIEW; transaksi PAID tidak dapat dihapus"
+          ]
+        },
+        {
+          "taskId": "S3-FE1-KANBAN-MYTASKS",
+          "title": "UI Kanban Board 6 Kolom (@dnd-kit), Drawer Detail Task & Halaman Tugas Saya",
+          "ownerRole": "frontend-developer",
+          "teamAssignee": "FE-1",
+          "dependsOn": ["S2-FE1-EVENT-TEAM-UI", "S3-BE1-TASKS"],
+          "ownedPaths": ["apps/web/src/features/tasks/**", "apps/web/src/features/my-workspace/**", "apps/web/src/app/(app)/orgs/[orgSlug]/events/[eventId]/tasks/**", "apps/web/src/app/(app)/me/**"],
+          "skillIds": ["frontend-implementation"],
+          "moduleIds": [15, 18],
+          "acceptanceCriteria": [
+            "Drag-and-drop kartu Kanban mendukung optimistic update dan aksesibilitas keyboard",
+            "Drawer detail task tetap menjaga konteks board melalui query param ?taskId="
+          ]
+        },
+        {
+          "taskId": "S3-FE2-FINANCE-UI",
+          "title": "UI Dashboard Anggaran, Alokasi Kategori, Pengajuan Nota & Antrean Approval",
+          "ownerRole": "frontend-developer",
+          "teamAssignee": "FE-2",
+          "dependsOn": ["S2-FE2-VENDOR-RESOURCE-UI", "S3-BE2-FINANCE"],
+          "ownedPaths": ["apps/web/src/features/finance/**", "apps/web/src/app/(app)/orgs/[orgSlug]/events/[eventId]/budget/**"],
+          "skillIds": ["frontend-implementation"],
+          "moduleIds": [15, 18],
+          "acceptanceCriteria": [
+            "Angka Pagu, Terikat, Aktual, dan Sisa ditampilkan terpisah tanpa digabung secara ambigu",
+            "Alur Submit -> Approve/Reject -> Catat Pembayaran berjalan lengkap beserta upload bukti nota"
+          ]
+        }
+      ]
+    },
+    {
+      "phaseId": "phase-4-schedule-and-registration",
+      "title": "Sprint 4 — Timeline Persiapan, Rundown, Registrasi Publik & Dokumen",
+      "tasks": [
+        {
+          "taskId": "S4-BE1-TIMELINE-RUNDOWN",
+          "title": "API Preparation Timeline & Rundown Acara (Pemisahan Planned vs Actual Time)",
+          "ownerRole": "backend-developer",
+          "teamAssignee": "BE-1",
+          "dependsOn": ["S3-BE1-TASKS"],
+          "ownedPaths": ["apps/api/src/modules/timeline/**", "apps/api/src/modules/rundown/**", "packages/contracts/src/timeline/**", "packages/contracts/src/rundown/**"],
+          "skillIds": ["backend-implementation"],
+          "moduleIds": [21, 60],
+          "acceptanceCriteria": [
+            "Perubahan jadwal rundown memicu notifikasi hanya ke PIC terkait dan menyimpan waktu rencana terpisah dari waktu aktual"
+          ]
+        },
+        {
+          "taskId": "S4-BE2-REGISTRATION-DOCS",
+          "title": "API Registrasi Publik Patuh UU PDP, Generator Tiket QR HMAC & Dokumen Event",
+          "ownerRole": "backend-developer",
+          "teamAssignee": "BE-2",
+          "dependsOn": ["S3-BE2-FINANCE"],
+          "ownedPaths": ["apps/api/src/modules/registrations/**", "apps/api/src/modules/documents/**", "apps/api/prisma/schema/06-registration.prisma", "packages/contracts/src/registrations/**", "packages/contracts/src/documents/**"],
+          "skillIds": ["backend-implementation"],
+          "moduleIds": [29, 33, 60],
+          "acceptanceCriteria": [
+            "Data PII peserta dibatasi ketat sesuai izin role; tiket QR memiliki tanda tangan HMAC unik"
+          ]
+        },
+        {
+          "taskId": "S4-FE1-TIMELINE-RUNDOWN-UI",
+          "title": "UI Linimasa Persiapan H-Minus & Penyusun Susunan Acara (Rundown Builder)",
+          "ownerRole": "frontend-developer",
+          "teamAssignee": "FE-1",
+          "dependsOn": ["S3-FE1-KANBAN-MYTASKS", "S4-BE1-TIMELINE-RUNDOWN"],
+          "ownedPaths": ["apps/web/src/features/timeline/**", "apps/web/src/features/rundown/**", "apps/web/src/app/(app)/orgs/[orgSlug]/events/[eventId]/timeline/**", "apps/web/src/app/(app)/orgs/[orgSlug]/events/[eventId]/rundown/**"],
+          "skillIds": ["frontend-implementation"],
+          "moduleIds": [15, 18],
+          "acceptanceCriteria": [
+            "Penyusunan urutan sesi, durasi jam WIB/WITA/WIT, dan keterkaitan task berjalan mulus"
+          ]
+        },
+        {
+          "taskId": "S4-FE2-REGISTRATION-DOCS-UI",
+          "title": "UI Form Registrasi Publik, Moderasi Peserta, E-Ticket QR & Pusat Dokumen",
+          "ownerRole": "frontend-developer",
+          "teamAssignee": "FE-2",
+          "dependsOn": ["S3-FE2-FINANCE-UI", "S4-BE2-REGISTRATION-DOCS"],
+          "ownedPaths": ["apps/web/src/features/registrations/**", "apps/web/src/features/documents/**", "apps/web/src/app/(public)/e/**", "apps/web/src/app/(public)/tiket/**", "apps/web/src/app/(app)/orgs/[orgSlug]/events/[eventId]/participants/**", "apps/web/src/app/(app)/orgs/[orgSlug]/events/[eventId]/documents/**"],
+          "skillIds": ["frontend-implementation"],
+          "moduleIds": [15, 18, 29],
+          "acceptanceCriteria": [
+            "Calon peserta dapat mendaftar lewat HP dengan cepat dan mengunduh/membuka E-Ticket QR"
+          ]
+        }
+      ]
+    },
+    {
+      "phaseId": "phase-5-live-day-and-readiness",
+      "title": "Sprint 5 — Event Readiness Dashboard, Live Operations Hari-H & Kamera Scan QR",
+      "tasks": [
+        {
+          "taskId": "S5-BE1-READINESS-LIVE",
+          "title": "Event Readiness Engine, Agregasi Overview & Stream SSE Live Operations",
+          "ownerRole": "backend-developer",
+          "teamAssignee": "BE-1",
+          "dependsOn": ["S4-BE1-TIMELINE-RUNDOWN", "S4-BE2-REGISTRATION-DOCS"],
+          "ownedPaths": ["apps/api/src/modules/events/readiness/**", "apps/api/src/modules/rundown/live/**"],
+          "skillIds": ["backend-implementation"],
+          "moduleIds": [21, 60],
+          "acceptanceCriteria": [
+            "Dashboard mengagregasi task, konflik resource, vendor, dan anggaran dalam < 200ms p95",
+            "Perubahan status sesi langsung tersiar lewat SSE ke klien yang terhubung"
+          ]
+        },
+        {
+          "taskId": "S5-BE2-CHECKIN-SUBSCRIPTION",
+          "title": "Endpoint Check-in QR Atomik Sekali Pakai, Activity Feed & Billing QRIS/VA",
+          "ownerRole": "backend-developer",
+          "teamAssignee": "BE-2",
+          "dependsOn": ["S4-BE2-REGISTRATION-DOCS"],
+          "ownedPaths": ["apps/api/src/modules/registrations/checkin/**", "apps/api/src/modules/subscriptions/**"],
+          "skillIds": ["backend-implementation"],
+          "moduleIds": [30, 60],
+          "acceptanceCriteria": [
+            "Uji konkuren 20 request scan QR serentak untuk 1 tiket hanya meloloskan tepat 1 sukses dan 19 konflik 409"
+          ]
+        },
+        {
+          "taskId": "S5-FE1-OVERVIEW-LIVE-UI",
+          "title": "UI Event Overview Readiness Dashboard & Layar Live Operations Hari-H",
+          "ownerRole": "frontend-developer",
+          "teamAssignee": "FE-1",
+          "dependsOn": ["S4-FE1-TIMELINE-RUNDOWN-UI", "S5-BE1-READINESS-LIVE"],
+          "ownedPaths": ["apps/web/src/features/live-ops/**", "apps/web/src/app/(app)/orgs/[orgSlug]/events/[eventId]/overview/**", "apps/web/src/app/(app)/orgs/[orgSlug]/events/[eventId]/live/**"],
+          "skillIds": ["frontend-implementation"],
+          "moduleIds": [15, 18],
+          "acceptanceCriteria": [
+            "Setiap kartu isu pada Overview dapat diklik langsung menuju task/resource/vendor/expense terkait",
+            "Layar Live Operations nyaman dibaca di tablet & smartphone pada kondisi ruangan gelap"
+          ]
+        },
+        {
+          "taskId": "S5-FE2-SCANNER-BILLING-UI",
+          "title": "UI Kamera Check-in QR Lapangan, Attendance Dashboard, Activity Feed & Langganan",
+          "ownerRole": "frontend-developer",
+          "teamAssignee": "FE-2",
+          "dependsOn": ["S4-FE2-REGISTRATION-DOCS-UI", "S5-BE2-CHECKIN-SUBSCRIPTION"],
+          "ownedPaths": ["apps/web/src/features/check-in/**", "apps/web/src/features/activities/**", "apps/web/src/features/subscriptions/**", "apps/web/src/app/(app)/orgs/[orgSlug]/events/[eventId]/check-in/**", "apps/web/src/app/(app)/orgs/[orgSlug]/subscription/**"],
+          "skillIds": ["frontend-implementation"],
+          "moduleIds": [15, 18],
+          "acceptanceCriteria": [
+            "Halaman scanner QR memberi umpan balik visual layar penuh instan dan menyediakan pencarian manual cadangan"
+          ]
+        }
+      ]
+    },
+    {
+      "phaseId": "phase-6-reports-templates-and-qa-gate",
+      "title": "Sprint 6 — Evaluasi Pasca-Acara, Template Cloner & Parallel QA Gate Craftrig",
+      "tasks": [
+        {
+          "taskId": "S6-BE2-REPORTS-TEMPLATES",
+          "title": "API Laporan Pasca-Acara Lintas Modul, Retrospective & Template Cloner Tanpa PII",
+          "ownerRole": "backend-developer",
+          "teamAssignee": "BE-2",
+          "dependsOn": ["S5-BE1-READINESS-LIVE", "S5-BE2-CHECKIN-SUBSCRIPTION"],
+          "ownedPaths": ["apps/api/src/modules/reports/**", "packages/contracts/src/reports/**"],
+          "skillIds": ["backend-implementation"],
+          "moduleIds": [29, 60],
+          "acceptanceCriteria": [
+            "Create Template menyalin divisi, task, milestone, rundown, dan kategori RAB dengan 0 kebocoran data peserta maupun transaksi keuangan"
+          ]
+        },
+        {
+          "taskId": "S6-FE2-REPORTS-TEMPLATES-UI",
+          "title": "UI Penutupan Event, Laporan Akhir, Retrospective & Wizard Buat Event dari Template",
+          "ownerRole": "frontend-developer",
+          "teamAssignee": "FE-2",
+          "dependsOn": ["S5-FE2-SCANNER-BILLING-UI", "S6-BE2-REPORTS-TEMPLATES"],
+          "ownedPaths": ["apps/web/src/features/reports/**", "apps/web/src/app/(app)/orgs/[orgSlug]/events/[eventId]/reports/**"],
+          "skillIds": ["frontend-implementation"],
+          "moduleIds": [15, 18],
+          "acceptanceCriteria": [
+            "Event Manager dapat menutup acara, mengisi evaluasi, dan membuat event baru dari template dalam satu alur utuh"
+          ]
+        },
+        {
+          "taskId": "S6-ALL-QA-SECURITY-GATE",
+          "title": "Audit Keamanan Multi-Tenant, Responsive Browser QA 41 Layar & Final Release Gate",
+          "ownerRole": "independent-assurance-lead",
+          "teamAssignee": "BE-1 + FE-1 + BE-2 + FE-2",
+          "dependsOn": ["S5-FE1-OVERVIEW-LIVE-UI", "S6-FE2-REPORTS-TEMPLATES-UI"],
+          "ownedPaths": ["e2e/**"],
+          "skillIds": ["responsive-first-browser-qa", "accessibility-qa", "security-review", "evidence-and-release-governance"],
+          "moduleIds": [7, 10, 12, 15, 54],
+          "acceptanceCriteria": [
+            "Seluruh 41 layar lulus inspeksi responsif Desktop/Tablet/Mobile tanpa horizontal overflow",
+            "Seluruh uji isolasi lintas organisasi (IDOR test) dan uji invariant finansial/QR lulus 100%"
+          ]
+        }
+      ]
+    }
+  ],
+  "qualityCheckpoints": [
+    { "id": "CHK-CONTRACT-SYNC", "title": "Konsistensi Tipe & Skema Zod Lintas FE-BE (@eventops/contracts)", "required": true },
+    { "id": "CHK-TENANT-RBAC", "title": "Isolasi Multi-Tenant Organisasi & Matriks 7 Role Kepanitiaan", "required": true },
+    { "id": "CHK-FINANCE-INVARIANT", "title": "Presisi Rupiah BigInt, Re-Approval Nominal & Immutability Transaksi PAID", "required": true },
+    { "id": "CHK-RESOURCE-QR-ATOMIC", "title": "Anti-Bentrok Resource Lintas Event & Single-Scan QR Check-in Atomik", "required": true },
+    { "id": "CHK-RESPONSIVE-A11Y-ID", "title": "Responsivitas 41 Layar (Termasuk Mobile Lapangan), WCAG AA & Bahasa Indonesia Alami", "required": true }
+  ]
+}
