@@ -1,97 +1,101 @@
 # EventOps Indonesia — Pemetaan Pemilik Kode (Sinkron dengan AGENTS.md)
-# Ganti @handle-github-* di bawah dengan username GitHub masing-masing anggota tim.
+# Pembagian peran aktif:
+# - FE-1: @vickyymosafan (Integration Owner Frontend & Squad Alpha UI)
+# - FE-2: @vibrous83     (Squad Beta UI)
+# - BE-1: @mraficaturw   (Integration Owner Backend & Squad Alpha API)
+# - BE-2: Belum ditetapkan (baris khusus BE-2 di-comment agar validator CODEOWNERS GitHub tidak error)
 
 # Fondasi & Konfigurasi Bersama
-/package.json                       @fe1-handle @be1-handle
-/pnpm-workspace.yaml                @fe1-handle @be1-handle
-/pnpm-lock.yaml                     @fe1-handle @be1-handle
-/turbo.json                         @fe1-handle @be1-handle
-/packages/typescript-config/        @fe1-handle @be1-handle
-/packages/contracts/src/common/     @fe1-handle @be1-handle
+/package.json                       @vickyymosafan @mraficaturw
+/pnpm-workspace.yaml                @vickyymosafan @mraficaturw
+/pnpm-lock.yaml                     @vickyymosafan @mraficaturw
+/turbo.json                         @vickyymosafan @mraficaturw
+/packages/typescript-config/        @vickyymosafan @mraficaturw
+/packages/contracts/src/common/     @vickyymosafan @mraficaturw
 
 # Kontrak Bersama per Squad
-/packages/contracts/src/auth/           @be1-handle @fe1-handle
-/packages/contracts/src/organizations/  @be1-handle @fe1-handle
-/packages/contracts/src/events/         @be1-handle @fe1-handle
-/packages/contracts/src/teams/          @be1-handle @fe1-handle
-/packages/contracts/src/tasks/          @be1-handle @fe1-handle
-/packages/contracts/src/timeline/       @be1-handle @fe1-handle
-/packages/contracts/src/rundown/        @be1-handle @fe1-handle
+/packages/contracts/src/auth/           @mraficaturw @vickyymosafan
+/packages/contracts/src/organizations/  @mraficaturw @vickyymosafan
+/packages/contracts/src/events/         @mraficaturw @vickyymosafan
+/packages/contracts/src/teams/          @mraficaturw @vickyymosafan
+/packages/contracts/src/tasks/          @mraficaturw @vickyymosafan
+/packages/contracts/src/timeline/       @mraficaturw @vickyymosafan
+/packages/contracts/src/rundown/        @mraficaturw @vickyymosafan
 
-/packages/contracts/src/vendors/        @be2-handle @fe2-handle
-/packages/contracts/src/resources/      @be2-handle @fe2-handle
-/packages/contracts/src/finance/        @be2-handle @fe2-handle
-/packages/contracts/src/registrations/  @be2-handle @fe2-handle
-/packages/contracts/src/documents/      @be2-handle @fe2-handle
-/packages/contracts/src/notifications/  @be2-handle @fe2-handle
-/packages/contracts/src/reports/        @be2-handle @fe2-handle
-/packages/contracts/src/subscriptions/  @be2-handle @fe2-handle
+/packages/contracts/src/vendors/        @vibrous83
+/packages/contracts/src/resources/      @vibrous83
+/packages/contracts/src/finance/        @vibrous83
+/packages/contracts/src/registrations/  @vibrous83
+/packages/contracts/src/documents/      @vibrous83
+/packages/contracts/src/notifications/  @vibrous83
+/packages/contracts/src/reports/        @vibrous83
+/packages/contracts/src/subscriptions/  @vibrous83
 
 # Area FE-1 (Integration Owner Frontend & Squad Alpha UI)
-/packages/ui/                                           @fe1-handle
-/apps/web/src/proxy.ts                                  @fe1-handle
-/apps/web/src/app/layout.tsx                            @fe1-handle
-/apps/web/src/app/globals.css                           @fe1-handle
-/apps/web/src/components/layout/                        @fe1-handle
-/apps/web/src/components/providers/                     @fe1-handle
-/apps/web/src/features/auth/                            @fe1-handle
-/apps/web/src/features/onboarding/                      @fe1-handle
-/apps/web/src/features/organizations/                   @fe1-handle
-/apps/web/src/features/my-workspace/                    @fe1-handle
-/apps/web/src/features/events/                          @fe1-handle
-/apps/web/src/features/teams/                           @fe1-handle
-/apps/web/src/features/tasks/                           @fe1-handle
-/apps/web/src/features/timeline/                        @fe1-handle
-/apps/web/src/features/rundown/                         @fe1-handle
-/apps/web/src/features/live-ops/                        @fe1-handle
-/apps/web/src/app/(auth)/                               @fe1-handle
-/apps/web/src/app/(app)/me/                             @fe1-handle
-/apps/web/src/app/(app)/orgs/*/overview/                @fe1-handle
-/apps/web/src/app/(app)/orgs/*/events/                  @fe1-handle
-/apps/web/src/app/(app)/orgs/*/members/                 @fe1-handle
-/apps/web/src/app/(app)/orgs/*/settings/                @fe1-handle
+/packages/ui/                                           @vickyymosafan
+/apps/web/src/proxy.ts                                  @vickyymosafan
+/apps/web/src/app/layout.tsx                            @vickyymosafan
+/apps/web/src/app/globals.css                           @vickyymosafan
+/apps/web/src/components/layout/                        @vickyymosafan
+/apps/web/src/components/providers/                     @vickyymosafan
+/apps/web/src/features/auth/                            @vickyymosafan
+/apps/web/src/features/onboarding/                      @vickyymosafan
+/apps/web/src/features/organizations/                   @vickyymosafan
+/apps/web/src/features/my-workspace/                    @vickyymosafan
+/apps/web/src/features/events/                          @vickyymosafan
+/apps/web/src/features/teams/                           @vickyymosafan
+/apps/web/src/features/tasks/                           @vickyymosafan
+/apps/web/src/features/timeline/                        @vickyymosafan
+/apps/web/src/features/rundown/                         @vickyymosafan
+/apps/web/src/features/live-ops/                        @vickyymosafan
+/apps/web/src/app/(auth)/                               @vickyymosafan
+/apps/web/src/app/(app)/me/                             @vickyymosafan
+/apps/web/src/app/(app)/orgs/*/overview/                @vickyymosafan
+/apps/web/src/app/(app)/orgs/*/events/                  @vickyymosafan
+/apps/web/src/app/(app)/orgs/*/members/                 @vickyymosafan
+/apps/web/src/app/(app)/orgs/*/settings/                @vickyymosafan
 
 # Area FE-2 (Squad Beta UI)
-/apps/web/src/features/marketing/                       @fe2-handle
-/apps/web/src/features/vendors/                         @fe2-handle
-/apps/web/src/features/resources/                       @fe2-handle
-/apps/web/src/features/finance/                         @fe2-handle
-/apps/web/src/features/registrations/                   @fe2-handle
-/apps/web/src/features/check-in/                        @fe2-handle
-/apps/web/src/features/documents/                       @fe2-handle
-/apps/web/src/features/notifications/                   @fe2-handle
-/apps/web/src/features/activities/                      @fe2-handle
-/apps/web/src/features/reports/                         @fe2-handle
-/apps/web/src/features/subscriptions/                   @fe2-handle
-/apps/web/src/app/(public)/                             @fe2-handle
-/apps/web/src/app/(app)/orgs/*/subscription/            @fe2-handle
-/apps/web/src/app/(app)/orgs/*/events/*/vendors/        @fe2-handle
-/apps/web/src/app/(app)/orgs/*/events/*/resources/      @fe2-handle
-/apps/web/src/app/(app)/orgs/*/events/*/budget/         @fe2-handle
-/apps/web/src/app/(app)/orgs/*/events/*/participants/   @fe2-handle
-/apps/web/src/app/(app)/orgs/*/events/*/check-in/       @fe2-handle
-/apps/web/src/app/(app)/orgs/*/events/*/documents/      @fe2-handle
-/apps/web/src/app/(app)/orgs/*/events/*/reports/        @fe2-handle
+/apps/web/src/features/marketing/                       @vibrous83
+/apps/web/src/features/vendors/                         @vibrous83
+/apps/web/src/features/resources/                       @vibrous83
+/apps/web/src/features/finance/                         @vibrous83
+/apps/web/src/features/registrations/                   @vibrous83
+/apps/web/src/features/check-in/                        @vibrous83
+/apps/web/src/features/documents/                       @vibrous83
+/apps/web/src/features/notifications/                   @vibrous83
+/apps/web/src/features/activities/                      @vibrous83
+/apps/web/src/features/reports/                         @vibrous83
+/apps/web/src/features/subscriptions/                   @vibrous83
+/apps/web/src/app/(public)/                             @vibrous83
+/apps/web/src/app/(app)/orgs/*/subscription/            @vibrous83
+/apps/web/src/app/(app)/orgs/*/events/*/vendors/        @vibrous83
+/apps/web/src/app/(app)/orgs/*/events/*/resources/      @vibrous83
+/apps/web/src/app/(app)/orgs/*/events/*/budget/         @vibrous83
+/apps/web/src/app/(app)/orgs/*/events/*/participants/   @vibrous83
+/apps/web/src/app/(app)/orgs/*/events/*/check-in/       @vibrous83
+/apps/web/src/app/(app)/orgs/*/events/*/documents/      @vibrous83
+/apps/web/src/app/(app)/orgs/*/events/*/reports/        @vibrous83
 
 # Area BE-1 (Integration Owner Backend & Squad Alpha API)
-/apps/api/src/app.module.ts                 @be1-handle
-/apps/api/prisma/migrations/                @be1-handle
-/apps/api/src/core/                         @be1-handle
-/apps/api/src/modules/auth/                 @be1-handle
-/apps/api/src/modules/organizations/        @be1-handle
-/apps/api/src/modules/events/               @be1-handle
-/apps/api/src/modules/teams/                @be1-handle
-/apps/api/src/modules/tasks/                @be1-handle
-/apps/api/src/modules/timeline/             @be1-handle
-/apps/api/src/modules/rundown/              @be1-handle
+/apps/api/src/app.module.ts                 @mraficaturw
+/apps/api/prisma/migrations/                @mraficaturw
+/apps/api/src/core/                         @mraficaturw
+/apps/api/src/modules/auth/                 @mraficaturw
+/apps/api/src/modules/organizations/        @mraficaturw
+/apps/api/src/modules/events/               @mraficaturw
+/apps/api/src/modules/teams/                @mraficaturw
+/apps/api/src/modules/tasks/                @mraficaturw
+/apps/api/src/modules/timeline/             @mraficaturw
+/apps/api/src/modules/rundown/              @mraficaturw
 
-# Area BE-2 (Squad Beta API & Support Infra)
-/apps/api/src/infra/                        @be2-handle
-/apps/api/src/modules/vendors/              @be2-handle
-/apps/api/src/modules/resources/            @be2-handle
-/apps/api/src/modules/finance/              @be2-handle
-/apps/api/src/modules/registrations/        @be2-handle
-/apps/api/src/modules/documents/            @be2-handle
-/apps/api/src/modules/notifications/        @be2-handle
-/apps/api/src/modules/reports/              @be2-handle
-/apps/api/src/modules/subscriptions/        @be2-handle
+# Area BE-2 (Squad Beta API & Support Infra — aktifkan saat anggota BE-2 sudah bergabung)
+# /apps/api/src/infra/                        @be2-handle
+# /apps/api/src/modules/vendors/              @be2-handle
+# /apps/api/src/modules/resources/            @be2-handle
+# /apps/api/src/modules/finance/              @be2-handle
+# /apps/api/src/modules/registrations/        @be2-handle
+# /apps/api/src/modules/documents/            @be2-handle
+# /apps/api/src/modules/notifications/        @be2-handle
+# /apps/api/src/modules/reports/              @be2-handle
+# /apps/api/src/modules/subscriptions/        @be2-handle
