@@ -1,0 +1,27 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum IndonesiaTimezone {
+  ASIA_JAKARTA
+  ASIA_MAKASSAR
+  ASIA_JAYAPURA
+}
+
+enum OrgRole {
+  OWNER
+  ADMIN
+  MEMBER
+}
+
+enum EventRole {
+  EVENT_MANAGER
+  DIVISION_LEADER
+  COMMITTEE_MEMBER
+  FINANCE_STAFF
+  VIEWER
+}
